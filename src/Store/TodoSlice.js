@@ -1,31 +1,38 @@
 import { createEntityAdapter, createSlice } from "@reduxjs/toolkit";
-
 export const TodoAdapter = createEntityAdapter()
- export const TodoSelectors = TodoAdapter.getSelectors((state)=>state.todos)
 
+export const TodoSelector = TodoAdapter.getSelectors((state)=>state.Todos)
 
-const TodoSlice = createSlice({
-    name : "todos",
-    initialState :TodoAdapter.getInitialState({
-        deletedTodos :[]
+    
+
+  const TodoSlice = createSlice({
+    name : "adapter",
+    initialState : TodoAdapter.getInitialState({
+        deleteTodos : []
     }),
     reducers : {
-        addTodo : TodoAdapter.addOne ,
-        addTodos : TodoAdapter.addMany ,
-        // deleteTodo : TodoAdapter.removeOne,
-        deleteTodo(state,action){
-            state.deletedTodos.push(state.entities[action.payload])
-         TodoAdapter.removeOne(state,action)
-        }, 
+        addTodo : TodoAdapter.addOne,
+        addTodos : TodoAdapter.addMany,
+       deleteTodo : TodoAdapter.removeOne,
+     
         clearTodos : TodoAdapter.removeAll,
         updateTodo : TodoAdapter.updateOne,
-         restoreTodo(state,action){
+        DeleteShow : (state,action) =>{
+            state.deleteTodos.push(state.entities[action.payload])
+              console.log("action.payload",action.payload)
+               
+              console.log("state",state.entities[action.payload])
+            TodoAdapter.removeOne(state,action)    
+        },
+        Restore : (state,action) =>{
             TodoAdapter.addOne(state,action);
-            state.deletedTodos = state.deletedTodos.filter(item=>item.id !== action.payload.id)
-         }
+            state.deleteTodos = state.deleteTodos.filter(item=>item.id !== action.payload.id)
+        }
+            
     }
 })
 
-export default TodoSlice.reducer
+export default TodoSlice.reducer   
+export const {addTodo ,addTodos,deleteTodo,clearTodos,updateTodo, DeleteShow,Restore} = TodoSlice.actions
 
-export const {addTodo,addTodos,deleteTodo,clearTodos,updateTodo,restoreTodo} = TodoSlice.actions
+
