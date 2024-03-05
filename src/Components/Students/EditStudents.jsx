@@ -23,6 +23,7 @@ function EditStudents() {
     <div>
       <h1>EditStudents - ({renderCount / 2})</h1>
       <form onSubmit={handleSubmit(onsubmit)} noValidate>
+        <div className="form-control">
         <label htmlFor="username">UserName</label>
         <input
           type="text"
@@ -30,8 +31,10 @@ function EditStudents() {
           {...register("username", { required: "Username is required" })}
         />
         <p className="errors">{errors.username?.message}</p>
+        </div>
         <br />
         <pre />
+        <div className="form-control">
         <label htmlFor="email">E-mail</label>
         <input
           type="email"
@@ -44,7 +47,7 @@ function EditStudents() {
             },
           })}
         />
-        
+        </div>
         <br />
         <p className="errors">{errors.email?.message}</p>
         <pre />
