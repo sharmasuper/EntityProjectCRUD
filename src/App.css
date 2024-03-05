@@ -4,6 +4,25 @@
   padding: 2rem;
   text-align: center;
 }
+
+.userForm{
+ margin: 0;
+ width:500px;
+ border:2px solid black;
+ padding: 20px;
+ 
+}
+
+.error{
+  color:red;
+}
+.fromGroup{
+  margin-bottom: 20px;
+}
+
+
+
+
 body{
   background-color: rgb(213, 213, 71);
 }
