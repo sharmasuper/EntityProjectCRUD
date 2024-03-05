@@ -6,20 +6,16 @@ let Render = 0;
 
 function UserInfoValidation({data}) {
   const form = useForm({
-    // defaultValues : async() =>{
-    //    const response = await axios.get('https://jsonplaceholder.typicode.com/users/1')
-    //    const Store = response.data
-    //   return {
-    //     name : Store.name,
-    //     Email:Store.email,
-    //     number : Store.website,
-    //     address :{
-    //         city:Store.address.city,
-    //         pincode : Store.address.zipcode
-
-    //     }
-    //   }
-    // }
+    defaultValues : {
+        name : "Rohit Azad",
+        Email : '',
+        number : ['',''],
+        address : {
+            city : '',
+            pincode : ''
+        }
+    }
+     
   })
 //   console.log(form)
   const {register,control,handleSubmit,formState :{errors}} = form
@@ -84,22 +80,34 @@ const submit = (data) =>{
         
          })} placeholder='Enter Your Name' />
          <p className='error' style={{color:"red"}}>{errors.Email?.message}</p>
-        </div>
+        </div> 
         <div className='fromGroup'>
         <label>Mobbile No-</label>
-        <input type='text' {...register('number',{
+        <input type='text' {...register('number.0',{
             required:{
                 value:true,
                 message:"please fill your good Number"
             }
-        })}  placeholder='Enter Your Name' />
+        })}  placeholder='Enter primary number' />
          <p className='error' style={{color:"red"}}>{errors.number?.message}</p>
         </div>
+
+        <div className='fromGroup'>
+        <label>Mobbile secondary No-</label>
+        <input type='text' {...register('number.1',{
+            required:{
+                value:true,
+                message:"please fill your good Number"
+            }
+        })}  placeholder='Enter Your secondary number' />
+         <p className='error' style={{color:"red"}}>{errors.number?.message}</p>
+        </div>
+
         <div className='fromGroup'>
         <label>City</label>
         <input type='city' {...register('address.city'
            
-        )}  placeholder='Enter Your Name' />
+        )}  placeholder='city' />
          <p className='error' style={{color:"red"}}>{errors.city?.message}</p>
         </div>
           
