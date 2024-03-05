@@ -7,6 +7,9 @@
 body{
   background-color: rgb(213, 213, 71);
 }
+.errors{
+  color:red;
+}
 .logo {
   height: 6em;
   padding: 1.5em;
