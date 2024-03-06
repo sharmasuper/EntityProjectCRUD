@@ -31,7 +31,12 @@ function UserInfoValidation({ data }) {
     }
   })
 
-  const { register, control, handleSubmit, setValue,getValues,formState: { errors } ,watch} = form
+  const { register, control, handleSubmit, setValue,getValues,formState: { errors,touchedFields,dirtyFields,isDirty } ,watch} = form
+
+
+ console.log("touchFields",touchedFields, "dirtyFields",dirtyFields , "isDirty" , isDirty)
+  //update kargai to dirtyFields bhi true dikhyga
+
   const { fields, append, remove } = useFieldArray({
     name: "anotherPhoneNumber",
     control
@@ -43,9 +48,7 @@ function UserInfoValidation({ data }) {
 
  const handleSetValues = () =>{
     
-     // event click kartai hi value get ho gahi
-     // but hum devtools mai dekhtai h to vo update nahi hui to hamai update karvana hoga
-    //third argunment jayga shouldvalidate and shoulddirty mandetary h dena or shouldTuoch
+    
     setValue("Email","mohit@gmial.com",{shouldValidate:true,shouldTouch:true,shouldDirty:true}) 
     setValue("name","mohit sharma",{shouldValidate:true,shouldTouch:true,shouldDirty:true}) 
 
