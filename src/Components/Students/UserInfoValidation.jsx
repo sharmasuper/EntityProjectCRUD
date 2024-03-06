@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import { useForm, useFieldArray } from "react-hook-form";
 import { DevTool } from '@hookform/devtools';
 
@@ -31,7 +31,7 @@ function UserInfoValidation({ data }) {
     }
   })
 
-  const { register, control, handleSubmit, formState: { errors } } = form
+  const { register, control, handleSubmit, formState: { errors } ,watch} = form
   const { fields, append, remove } = useFieldArray({
     name: "anotherPhoneNumber",
     control
@@ -40,12 +40,30 @@ function UserInfoValidation({ data }) {
   const submit = (data) => {
     console.log(data)
   }
+//    const UserWatch = watch("name")
+ // agar jayada value watch karvani h to hum Array ka use karaigai
+//    const UserWatch = watch(['name','Email','number.0'])
+ //but jab hamai pura object hi show karvana ho tab kaya tab direct object ho use kartai h   
+//use JSON.stringify yai object ko stringify mai convert kar daitha h
+    //   const UserWatch = watch()
+// form mai jitnai bhi field hogai sabko print karvaiga
+ //use useEffect hook and solve Render Problem
+ useEffect(()=>{
+  const Subscription =  watch((data)=>{
+    return console.log('data',data)
+  })
+  return () =>{
+    Subscription.unsubscribe();
+  }
+ },[watch])
 
   Render++
   return (
     <>
       <div className='userForm'>
-        <h2>User info Details-{Render}</h2>
+        <h2>User info Details-{Render/2}</h2>
+        {/* <h3>UserWatch Render - {JSON.stringify(UserWatch)}</h3> */}
+        
         <form className='userDetailform' onSubmit={handleSubmit(submit)}>
           {/* Input for Name */}
           <div className='fromGroup'>
