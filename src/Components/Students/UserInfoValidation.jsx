@@ -31,7 +31,7 @@ function UserInfoValidation({ data }) {
     }
   })
 
-  const { register, control, handleSubmit, formState: { errors } ,watch} = form
+  const { register, control, handleSubmit, getValues,formState: { errors } ,watch} = form
   const { fields, append, remove } = useFieldArray({
     name: "anotherPhoneNumber",
     control
@@ -40,14 +40,16 @@ function UserInfoValidation({ data }) {
   const submit = (data) => {
     console.log(data)
   }
-//    const UserWatch = watch("name")
- // agar jayada value watch karvani h to hum Array ka use karaigai
-//    const UserWatch = watch(['name','Email','number.0'])
- //but jab hamai pura object hi show karvana ho tab kaya tab direct object ho use kartai h   
-//use JSON.stringify yai object ko stringify mai convert kar daitha h
-    //   const UserWatch = watch()
-// form mai jitnai bhi field hogai sabko print karvaiga
- //use useEffect hook and solve Render Problem
+
+const handleGetValue = (values) =>{
+//    const formValue = getValues('anotherPhoneNumber');
+//   const formValue = getValues('Email')
+const formValues = getValues(["Email","number"])
+
+   console.log("form values",formValues)
+}
+
+
  useEffect(()=>{
   const Subscription =  watch((data)=>{
     return console.log('data',data)
@@ -222,6 +224,7 @@ function UserInfoValidation({ data }) {
           </div>
 
           <button className='btn btn-primary'>Save</button>
+          <button typeof='button' onClick={handleGetValue}>GatValues</button>
         </form>
         <DevTool control={control} />
       </div>
