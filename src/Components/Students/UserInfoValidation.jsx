@@ -31,7 +31,12 @@ function UserInfoValidation({ data }) {
     }
   })
 
-  const { register, control, handleSubmit, setValue,getValues,formState: { errors,touchedFields,dirtyFields,isDirty,isValid } ,watch} = form
+  const { register, control, handleSubmit, setValue,getValues,formState: { errors,touchedFields,dirtyFields,isDirty,isValid ,isSubmitting,isSubmitted,isSubmitSuccessful,submitCount} ,watch} = form
+
+                                      console.log('issubmitting',isSubmitting)
+                                      console.log('isSubmitSuccessfully',isSubmitSuccessful)
+                                      console.log('issubmitted',isSubmitted)
+                                      console.log('submitCount',submitCount)
 
 
  console.log("touchFields",touchedFields, "dirtyFields",dirtyFields , "isDirty" , isDirty,"isValid",isValid)
