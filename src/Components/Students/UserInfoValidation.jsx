@@ -31,12 +31,11 @@ function UserInfoValidation({ data }) {
     }
   })
 
-  const { register, control, handleSubmit, setValue,getValues,formState: { errors,touchedFields,dirtyFields,isDirty,isValid ,isSubmitting,isSubmitted,isSubmitSuccessful,submitCount} ,watch} = form
+                                  
 
-                                      console.log('issubmitting',isSubmitting)
-                                      console.log('isSubmitSuccessfully',isSubmitSuccessful)
-                                      console.log('issubmitted',isSubmitted)
-                                      console.log('submitCount',submitCount)
+  const { register, control, handleSubmit, setValue,getValues,reset,formState: { errors,touchedFields,dirtyFields,isDirty,isValid ,isSubmitting,isSubmitted,isSubmitSuccessful,submitCount} ,watch} = form
+
+                                   
 
 
  console.log("touchFields",touchedFields, "dirtyFields",dirtyFields , "isDirty" , isDirty,"isValid",isValid)
@@ -79,8 +78,18 @@ const formValues = getValues(["Email","number"])
   }
  },[watch])
 
+useEffect(()=>{
+    if(isSubmitSuccessful){
+        reset()
+    }
+},[isSubmitSuccessful,reset])
+
  const onError = (error) =>{
     console.log('error',error)
+ }
+
+ const HandleReset = () =>{
+   reset()
  }
 
   Render++
@@ -253,6 +262,7 @@ const formValues = getValues(["Email","number"])
                                                                                             {/* jab tak sarai valid correct form fill nahi ho jaya tab tak tab tak yai disabled hi rahaiga */}
           <button type='button' onClick={handleGetValue}>GatValues</button>
           <button type="button" onClick={handleSetValues}>SetValues</button>
+          <button type='button' onClick={HandleReset}>Reset</button>
         </form>
         <DevTool control={control} />
       </div>
