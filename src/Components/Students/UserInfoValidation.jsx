@@ -86,7 +86,8 @@ const formValues = getValues(["Email","number"])
           {/* Input for Name */}
           <div className='fromGroup'>
             <label>Name</label>
-            <input type='text' {...register('name', {
+            <input type='text'  {...register('name', {
+                disabled:watch('Email') === "",              // disabled:true condition bhi h  is per condition laga di email agar blacnk hai to to yai disabled hogo
                 minLength :{
                      value : 4,
                      message : 'Please fill 4 length caracter'
@@ -110,6 +111,7 @@ const formValues = getValues(["Email","number"])
           <div className='fromGroup'>
             <label>Email</label>
             <input type='email' {...register('Email', {
+                
               pattern: {
                 value: /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
                 message: "invalid Email id"
