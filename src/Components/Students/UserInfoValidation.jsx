@@ -21,10 +21,12 @@ function UserInfoValidation({ data }) {
         address: [
           {
             city: "",
-            state: "",
+            state: "", 
             pincode: ""
           }
-        ]
+        ],
+       age : 0,
+       dataOfBirth : new Date()
       }]
     }
   })
@@ -49,6 +51,15 @@ function UserInfoValidation({ data }) {
           <div className='fromGroup'>
             <label>Name</label>
             <input type='text' {...register('name', {
+                minLength :{
+                     value : 4,
+                     message : 'Please fill 4 length caracter'
+                },
+                minLength :{
+                    value : 40,
+                    message : 'limit exeed'
+               }
+                ,
               required: {
                 value: true,
                 message: "please fill your good name"
@@ -151,7 +162,47 @@ function UserInfoValidation({ data }) {
               </div>
             ))}
             <button className='btn btn-secondary' onClick={() => append({ firstname: "", LastName: "", RollNumber: "", address: [{ state: "", city: "", pincode: "" }] })}>Add One More</button>
+         
+            <div className='fromGroup'>
+            <label>age</label>
+            <input type='number' {...register('age', {
+                valueAsNumber:true,
+                min : {
+                    value : 3,
+                    message : 'please fill age more then 3'
+                   },
+                   max:{
+                   
+                        value : 100,
+                        message : 'you can not fill this form overage'
+                     
+                   },
+              required: {
+                value: true,
+                message: "please fill your good age"
+              }
+           
+            })} placeholder='Enter Your age' />
+            <p className='error' style={{ color: "red" }}>{errors.age?.message}</p>
           </div>
+
+          <div className='fromGroup'>
+            <label>Date Of Birth</label>
+            <input type='date' {...register('dataOfBirth', {
+                valueAsDate:true,
+               
+              required: {
+                value: true,
+                message: "please fill your good dataOfBirth"
+              }
+           
+            })} placeholder='Enter Your dataOfBirth' />
+            <p className='error' style={{ color: "red" }}>{errors.dataOfBirth?.message}</p>
+          </div>
+         
+         
+          </div>
+
           <button className='btn btn-primary'>Save</button>
         </form>
         <DevTool control={control} />
