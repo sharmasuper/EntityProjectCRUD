@@ -31,7 +31,7 @@ function UserInfoValidation({ data }) {
     }
   })
 
-  const { register, control, handleSubmit, getValues,formState: { errors } ,watch} = form
+  const { register, control, handleSubmit, setValue,getValues,formState: { errors } ,watch} = form
   const { fields, append, remove } = useFieldArray({
     name: "anotherPhoneNumber",
     control
@@ -40,6 +40,19 @@ function UserInfoValidation({ data }) {
   const submit = (data) => {
     console.log(data)
   }
+
+ const handleSetValues = () =>{
+    
+     // event click kartai hi value get ho gahi
+     // but hum devtools mai dekhtai h to vo update nahi hui to hamai update karvana hoga
+    //third argunment jayga shouldvalidate and shoulddirty mandetary h dena or shouldTuoch
+    setValue("Email","mohit@gmial.com",{shouldValidate:true,shouldTouch:true,shouldDirty:true}) 
+    setValue("name","mohit sharma",{shouldValidate:true,shouldTouch:true,shouldDirty:true}) 
+
+
+
+
+ }
 
 const handleGetValue = (values) =>{
 //    const formValue = getValues('anotherPhoneNumber');
@@ -224,7 +237,8 @@ const formValues = getValues(["Email","number"])
           </div>
 
           <button className='btn btn-primary'>Save</button>
-          <button typeof='button' onClick={handleGetValue}>GatValues</button>
+          <button type='button' onClick={handleGetValue}>GatValues</button>
+          <button type="button" onClick={handleSetValues}>SetValues</button>
         </form>
         <DevTool control={control} />
       </div>
