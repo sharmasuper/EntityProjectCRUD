@@ -31,10 +31,10 @@ function UserInfoValidation({ data }) {
     }
   })
 
-  const { register, control, handleSubmit, setValue,getValues,formState: { errors,touchedFields,dirtyFields,isDirty } ,watch} = form
+  const { register, control, handleSubmit, setValue,getValues,formState: { errors,touchedFields,dirtyFields,isDirty,isValid } ,watch} = form
 
 
- console.log("touchFields",touchedFields, "dirtyFields",dirtyFields , "isDirty" , isDirty)
+ console.log("touchFields",touchedFields, "dirtyFields",dirtyFields , "isDirty" , isDirty,"isValid",isValid)
   //update kargai to dirtyFields bhi true dikhyga
 
   const { fields, append, remove } = useFieldArray({
@@ -51,7 +51,6 @@ function UserInfoValidation({ data }) {
     
     setValue("Email","mohit@gmial.com",{shouldValidate:true,shouldTouch:true,shouldDirty:true}) 
     setValue("name","mohit sharma",{shouldValidate:true,shouldTouch:true,shouldDirty:true}) 
-
 
 
 
@@ -85,8 +84,8 @@ const formValues = getValues(["Email","number"])
       <div className='userForm'>
         <h2>User info Details-{Render/2}</h2>
         {/* <h3>UserWatch Render - {JSON.stringify(UserWatch)}</h3> */}
-        
-        <form className='userDetailform' onSubmit={handleSubmit(submit,onError)}>
+                                                                            {/* onError sai jitnai bhi h sarai error print ho jaygai */}
+        <form className='userDetailform' onSubmit={handleSubmit(submit,onError)}>  
           {/* Input for Name */}
           <div className='fromGroup'>
             <label>Name</label>
@@ -245,7 +244,8 @@ const formValues = getValues(["Email","number"])
          
           </div>
 
-          <button className='btn btn-primary'>Save</button>
+          <button className='btn btn-primary' disabled={!isDirty || !isValid}>Save</button>    
+                                                                                            {/* jab tak sarai valid correct form fill nahi ho jaya tab tak tab tak yai disabled hi rahaiga */}
           <button type='button' onClick={handleGetValue}>GatValues</button>
           <button type="button" onClick={handleSetValues}>SetValues</button>
         </form>
