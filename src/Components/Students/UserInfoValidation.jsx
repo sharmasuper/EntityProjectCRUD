@@ -75,6 +75,10 @@ const formValues = getValues(["Email","number"])
   }
  },[watch])
 
+ const onError = (error) =>{
+    console.log('error',error)
+ }
+
   Render++
   return (
     <>
@@ -82,12 +86,12 @@ const formValues = getValues(["Email","number"])
         <h2>User info Details-{Render/2}</h2>
         {/* <h3>UserWatch Render - {JSON.stringify(UserWatch)}</h3> */}
         
-        <form className='userDetailform' onSubmit={handleSubmit(submit)}>
+        <form className='userDetailform' onSubmit={handleSubmit(submit,onError)}>
           {/* Input for Name */}
           <div className='fromGroup'>
             <label>Name</label>
             <input type='text'  {...register('name', {
-                disabled:watch('Email') === "",              // disabled:true condition bhi h  is per condition laga di email agar blacnk hai to to yai disabled hogo
+                disabled: true,              // disabled:true condition bhi h  is per condition laga di email agar blacnk hai to to yai disabled hogo
                 minLength :{
                      value : 4,
                      message : 'Please fill 4 length caracter'
