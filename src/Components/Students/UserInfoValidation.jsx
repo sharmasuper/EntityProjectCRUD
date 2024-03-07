@@ -1,6 +1,7 @@
 import React,{useEffect} from 'react';
 import { useForm, useFieldArray } from "react-hook-form";
 import { DevTool } from '@hookform/devtools';
+import axios from 'axios'
 
 let Render = 0;
 
@@ -80,7 +81,7 @@ const formValues = getValues(["Email","number"])
 
 useEffect(()=>{
     if(isSubmitSuccessful){
-        reset()
+        reset()     //jasai hi submit per click kargai automatic reset ho jayaga
     }
 },[isSubmitSuccessful,reset])
 
@@ -104,7 +105,7 @@ useEffect(()=>{
           <div className='fromGroup'>
             <label>Name</label>
             <input type='text'  {...register('name', {
-                disabled: true,              // disabled:true condition bhi h  is per condition laga di email agar blacnk hai to to yai disabled hogo
+                  disabled:true,           // disabled:true condition bhi h  is per condition laga di email agar blacnk hai to to yai disabled hogo
                 minLength :{
                      value : 4,
                      message : 'Please fill 4 length caracter'
@@ -146,6 +147,11 @@ useEffect(()=>{
                 },
                 lengthError: (value) => {
                   return value.length > 6 || 'please write correct email format'
+                },
+                checkEmailVaidate : async(value) =>{
+                    const data = await axios (`https://jsonplaceholder.typicode.com/users?email=${value}`)
+                    const response =   data.data
+                    return response && response.length ===0 || 'this Email id already use please use aother email id'
                 }
               }
             })} placeholder='Enter Your Email' />
@@ -257,8 +263,8 @@ useEffect(()=>{
          
          
           </div>
-
-          <button className='btn btn-primary' disabled={!isDirty || !isValid}>Save</button>    
+          {/* disabled={!isDirty || !isValid} */}
+          <button className='btn btn-primary'  disabled={!isDirty || !isValid}>Save</button>    
                                                                                             {/* jab tak sarai valid correct form fill nahi ho jaya tab tak tab tak yai disabled hi rahaiga */}
           <button type='button' onClick={handleGetValue}>GatValues</button>
           <button type="button" onClick={handleSetValues}>SetValues</button>
