@@ -29,15 +29,23 @@ function UserInfoValidation({ data }) {
        age : 0,
        dataOfBirth : new Date()
       }]
-    }
+    },
+    mode : 'all' // isper touch or blure kam kartha h 
+   // mode : 'onBlur'   //jasai hi user input per click karkai bahar aata h tab  //onChange nhi h but issai cpmponent rerender hota h
+  //  mode : 'onTouched' //jaisai user validation check karai validation check ho jay input ko touch karaiga jab
+  //  mode : 'onSubmit' //means jab form submit ho tab validation check ho 
   })
 
                                   
 
-  const { register, control, handleSubmit, setValue,getValues,reset,formState: { errors,touchedFields,dirtyFields,isDirty,isValid ,isSubmitting,isSubmitted,isSubmitSuccessful,submitCount} ,watch} = form
+  const { register, control, handleSubmit, setValue,getValues,reset,trigger,formState: { errors,touchedFields,dirtyFields,isDirty,isValid ,isSubmitting,isSubmitted,isSubmitSuccessful,submitCount} ,watch} = form
 
                                    
-
+const HandleValidate = () =>{
+  //  trigger()         //      is event per click kartai hi yai check validate check kartha h or error message show karvtha h or essasai 
+  //trigger('Email')       // ek value ko bhi check kar sktai h
+  trigger(['email','age'])
+}
 
  console.log("touchFields",touchedFields, "dirtyFields",dirtyFields , "isDirty" , isDirty,"isValid",isValid)
   //update kargai to dirtyFields bhi true dikhyga
@@ -269,6 +277,7 @@ useEffect(()=>{
           <button type='button' onClick={handleGetValue}>GatValues</button>
           <button type="button" onClick={handleSetValues}>SetValues</button>
           <button type='button' onClick={HandleReset}>Reset</button>
+          <button type='button' onClick={HandleValidate}>Validate Trigger</button> 
         </form>
         <DevTool control={control} />
       </div>
